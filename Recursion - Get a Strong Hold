@@ -1,0 +1,130 @@
+Reverse Array Using Recursion — 2 Approaches
+
+Both approaches are correct and commonly used in DSA interviews.
+
+Approach 1 — Using Two Pointers (l and r)
+Idea
+Start one pointer from the beginning (l)
+Start another pointer from the end (r)
+Swap both elements
+Move:
+l++
+r--
+Stop when l >= r
+
+-----------------------------------------------------------------------------------------------------------------
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void fun(int arr[], int n, int l, int r){
+    
+    if(l >= r){
+        return;
+    }
+    
+    swap(arr[l], arr[r]);
+    fun(arr, n, l + 1, r - 1);
+}
+
+int main() {
+	// your code goes here
+	
+	int arr[] = {1,2,3,4,5};
+	
+	int n = sizeof(arr)/sizeof(arr[0]); // 5/1 = 5
+	
+	int l = 0, r = n - 1;
+	
+	fun(arr, n, l , r);
+	
+	for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Approach 2 — Using Single Index (i)
+Idea
+
+Instead of maintaining two pointers:
+
+Start with index i = 0
+Swap:
+arr[i] ↔ arr[n-i-1]
+
+This automatically finds the opposite side element.
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void fun(int arr[], int i, int n){
+    
+    if(i >= n/2){
+        return;
+    }
+    
+    swap(arr[i], arr[n-i-1]);
+    fun(arr, i+1, n);
+}
+
+int main() {
+	// your code goes here
+	
+	int arr[] = {1,2,3,4,5};
+	
+	int n = sizeof(arr)/sizeof(arr[0]); // 5/1 = 5
+	
+	fun(arr, 0, n);
+	
+	for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+
+}
+
+----------------------------------------------------------------------------------------------------------------
+recursive Palindrome
+----------------------------------------------------------------------------------------------------------------
+#include <bits/stdc++.h>
+using namespace std;
+
+bool fun(string name, int i, int n){
+
+    // Base case
+    if(i >= n / 2){
+        return true;
+    }
+
+    // If characters do not match
+    if(name[i] != name[n - i - 1]){
+        return false;
+    }
+
+    // Recursive call
+    return fun(name, i + 1, n);
+}
+
+int main() {
+
+    string name = "madam";
+
+    int n = name.size();
+
+    if(fun(name, 0, n)){
+        cout << "Palindrome";
+    }
+    else{
+        cout << "Not Palindrome";
+    }
+
+    return 0;
+}
+
